@@ -1,0 +1,51 @@
+---
+server:
+    install: '1'
+    packages: [
+      curl,
+      wget,
+      python-software-properties,
+      git,
+      htop,
+      mc,
+      memcached
+    ]
+    timezone: Europe/Moscow
+    locale: ru_RU.UTF-8
+vagrant_local:
+    install: '1'
+    vm: { hostname: "{{hostname}}" }
+nginx:
+    install: '1'
+    docroot: /home/vagrant/web
+    servername: "{{hostname}}"
+mysql:
+    install: '1'
+    root_password: ''
+    database: common
+    user: common
+    password: common
+    dump: ''
+php:
+    install: '1'
+    ppa: php-7.0
+    packages: [
+      php7.0-cli,
+      php7.0-intl,
+      php7.0-mcrypt,
+      php7.0-curl,
+      php7.0-common,
+      php7.0-fpm,
+      php7.0-gd,
+      php-memcached,
+      php7.0-mysql,
+      php-pear,
+      php-redis,
+      php-xdebug,
+      php-mbstring,
+      php-soap
+    ]
+xdebug:
+    install: '1'
+composer:
+    install: '1'

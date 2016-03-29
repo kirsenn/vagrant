@@ -1,0 +1,13 @@
+zend_extension=xdebug.so
+xdebug.remote_enable=on
+xdebug.remote_connect_back=on
+xdebug.remote_autostart=on
+xdebug.remote_handler="dbgp"
+xdebug.remote_port=9000
+xdebug.remote_host="192.168.33.1"
+xdebug.remote_mode=req
+xdebug.idekey="PHPSTORM"
+xdebug.profiler_enable=Off
+xdebug.profiler_output_dir="/var/www/traces"
+xdebug.profiler_enable_trigger=On
+xdebug.profiler_output_name="cachegrind.out"

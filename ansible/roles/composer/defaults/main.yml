@@ -1,0 +1,13 @@
+---
+composer_path: /usr/local/bin/composer
+composer_keep_updated: true
+
+composer_home_path: '~/.composer'
+composer_home_owner: vagrant
+composer_home_group: vagrant
+
+composer_global_packages: []
+
+composer_add_to_path: true
+
+composer_github_oauth_token: ''

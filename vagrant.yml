@@ -1,0 +1,5 @@
+vm:
+    ip_address: 192.168.33.33
+    name: 'vagrant.loc'
+    cpus: 1
+    memory: 1024

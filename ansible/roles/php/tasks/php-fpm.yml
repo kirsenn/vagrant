@@ -1,0 +1,49 @@
+---
+- name: Set permissions on socket - owner
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^;?listen.owner' line='listen.owner = vagrant'"
+
+- name: Set permissions on socket - group
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^;?listen.group' line='listen.group = vagrant'"
+
+- name: Set permissions on socket - mode
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^;?listen.mode' line='listen.mode = 0660'"
+  notify: restart php-fpm7.0
+
+- name: change fpm run user
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^user' line='user = vagrant'"
+  notify: restart php-fpm7.0
+
+- name: change fpm run group
+  lineinfile: "dest=/etc/php/7.0/fpm/pool.d/www.conf state=present regexp='^group' line='group = vagrant'"
+  notify: restart php-fpm7.0
+
+- name: ensure timezone is set in fpm php.ini
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ server.timezone }}'
+- name: enabling opcache
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini
+              regexp=';?opcache.enable=\d'
+              line='opcache.enable=1'
+
+- name: increase php execution time
+  lineinfile: dest=/etc/php/7.0/fpm/php.ini
+              regexp='max_execution_time ='
+              line='max_execution_time = 120'
+
+- name: error reporting E_ALL
+  lineinfile: "dest=/etc/php/7.0/fpm/php.ini regexp='^error_reporting =' line='error_reporting = E_ALL'"
+
+- name: display errors on
+  lineinfile: "dest=/etc/php/7.0/fpm/php.ini regexp='^display_errors =' line='display_errors = on'"
+
+- name: short_open_tag on
+  lineinfile: "dest=/etc/php/7.0/fpm/php.ini regexp='^short_open_tag =' line='short_open_tag = on'"
+
+- name: display_startup_errors on
+  lineinfile: "dest=/etc/php/7.0/fpm/php.ini regexp='^display_startup_errors =' line='display_startup_errors = on'"
+
+- name: Add xdebug config
+  become: yes
+  template: src=xdebug.tpl dest=/etc/php/7.0/mods-available/xdebug.ini
+  notify: restart php-fpm7.0

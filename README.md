@@ -1,1 +1,1 @@
-# vagrant
+vagrant with php 7 and subdomains config

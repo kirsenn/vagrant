@@ -1,0 +1,17 @@
+---
+- name: Install Nginx
+  become: yes
+  apt: pkg=nginx state=latest
+
+- name: Set nginx run user
+  become: yes
+  lineinfile: "dest=/etc/nginx/nginx.conf state=present regexp='^user .*;' line='user vagrant;'"
+  notify: restart nginx
+
+- name: Creates directory
+  file: path=/etc/nginx/common state=directory owner=root group=root mode=0775
+
+- name: Change default nginx site
+  become: yes
+  template: src=default.tpl dest=/etc/nginx/sites-available/default
+  notify: restart nginx
